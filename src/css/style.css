@@ -12,7 +12,6 @@ body {
 
 header {
   display: flex;
-  justify-content: center;
   align-items: center;
   padding: 20px;
   justify-content: space-between;
@@ -30,23 +29,18 @@ header nav ul {
 
 header nav ul li {
   list-style: none;
-    margin: 15px;
+  margin: 15px;
 }
 
 header nav ul li a {
   color: white;
   text-decoration: none;
+  transition: color 0.5s ease;
 }
 
-header nav ul li a {
-    color: white;
-    text-decoration: none;
-    transition: color 0.5s ease;
-  }
-  
-  header nav ul li a:hover {
-    color: red;
-  }
+header nav ul li a:hover {
+  color: red;
+}
 
 .logo {
   width: 120px;
@@ -63,34 +57,30 @@ main {
 }
 
 footer {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.7em;
-    padding: 22px;
-    background-color: #303030;
-    color: white;
-    text-align: center;
-    justify-content: center;
-    flex-shrink: 0;
-    align-items: center;
-  }
-  
-  #logo1 {
-    width: 70px;  /* o el tamaño que prefieras */
-    height: 70px;
-    background-image: url('/assets/epic-games-logo.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    align-self: center;
-    margin-bottom: 10px; /* Espacio entre el logo y el texto */
-    opacity: 0.8; /* Opacidad baja inicial */
-    transition: opacity 0.5s ease; /* Transición suave de la opacidad */
-  }
-  
-  #logo1:hover {
-    opacity: 1; /* Opacidad alta al pasar el cursor por encima */
-  }
-  
-  
-  
-  
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7em;
+  padding: 22px;
+  background-color: #303030;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+#logo1 {
+  width: 70px;  /* o el tamaño que prefieras */
+  height: 70px;
+  background-image: url('/assets/epic-games-logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  align-self: center;
+  margin-bottom: 10px; /* Espacio entre el logo y el texto */
+  opacity: 0.8; /* Opacidad baja inicial */
+  transition: opacity 0.5s ease; /* Transición suave de la opacidad */
+}
+
+#logo1:hover {
+  opacity: 1; /* Opacidad alta al pasar el cursor por encima */
+}
