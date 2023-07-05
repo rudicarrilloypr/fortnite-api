@@ -1,0 +1,96 @@
+/* styles.css */
+
+html,
+body {
+  font-family: 'Luckiest Guy', cursive;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  justify-content: space-between;
+  background-color: #0051d3;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+header nav ul {
+  display: flex;
+  gap: 20px;
+}
+
+header nav ul li {
+  list-style: none;
+    margin: 15px;
+}
+
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.5s ease;
+  }
+  
+  header nav ul li a:hover {
+    color: red;
+  }
+
+.logo {
+  width: 120px;
+  height: 120px;
+  margin-bottom: -82px;
+  margin-left: 25px;
+  background-image: url('/assets/fornite-logo-white.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.7em;
+    padding: 22px;
+    background-color: #303030;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  
+  #logo1 {
+    width: 70px;  /* o el tamaño que prefieras */
+    height: 70px;
+    background-image: url('/assets/epic-games-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    align-self: center;
+    margin-bottom: 10px; /* Espacio entre el logo y el texto */
+    opacity: 0.8; /* Opacidad baja inicial */
+    transition: opacity 0.5s ease; /* Transición suave de la opacidad */
+  }
+  
+  #logo1:hover {
+    opacity: 1; /* Opacidad alta al pasar el cursor por encima */
+  }
+  
+  
+  
+  
