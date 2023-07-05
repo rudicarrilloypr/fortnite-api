@@ -39,7 +39,7 @@ header nav ul li a {
 }
 
 header nav ul li a:hover {
-  color: red;
+  color: rgb(231, 62, 62);
 }
 
 .logo {
@@ -67,6 +67,7 @@ footer {
   justify-content: center;
   flex-shrink: 0;
   align-items: center;
+  font-family: 'Rubik', Arial, Helvetica, sans-serif;
 }
 
 #logo1 {
