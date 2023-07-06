@@ -54,6 +54,36 @@ header nav ul li a:hover {
 
 main {
   flex: 1 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+  align-items: flex-start;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 30%;  /* Asegúrate de que sea suficientemente pequeño para que quepan tres en una fila */
+  margin: 1%;  /* Un pequeño margen alrededor para espacio entre items */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  /* Un poco de sombra para que parezca una caja */
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: white;  /* Color inicial de fondo */
+  transition: background-color 0.2s ease;  /* Transición suave del color de fondo */
+}
+
+.item:hover {
+  background-color: #f0f0f0;  /* Color de fondo al pasar el cursor por encima */
+}
+
+/* Asegúrate de que los items se muestren en una cuadrícula con tres en una fila */
+#items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 footer {
