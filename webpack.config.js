@@ -7,9 +7,12 @@ module.exports = (env, argv) => {
 
   return {
     mode: isProduction ? 'production' : 'development',
-    entry: './src/js/index.js',
+    entry: {
+      main: './src/js/index.js',
+      mostwanted: './src/js/most-wanted.js', // Asegúrate de que la ruta es correcta
+    },
     output: {
-      filename: 'main.js',
+      filename: '[name].js',
       path: path.resolve(__dirname, 'dist'),
     },
     module: {
@@ -39,6 +42,12 @@ module.exports = (env, argv) => {
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: './src/html/index.html',
+        chunks: ['main'],
+      }),
+      new HtmlWebpackPlugin({
+        filename: 'most-wanted.html',
+        template: './src/html/most-wanted.html', // Asegúrate de que la ruta es correcta
+        chunks: ['mostwanted'],
       }),
     ],
     devServer: {
