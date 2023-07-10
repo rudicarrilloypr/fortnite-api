@@ -12,7 +12,7 @@
 
 # 📗 Table of Contents
 
-- [📖  Fortnite New Cosmetics ](#--pokemon-app-)
+- [📖  Fortnite New Cosmetics ](#--fornite-)
 - [🛠 Built With ](#-built-with-)
    - [Tech Stack ](#tech-stack-)
     - [Key Features ](#key-features-)
@@ -23,37 +23,19 @@
     - [Install](#install)
     - [Usage](#usage)
     - [Run tests](#run-tests)
-    - [Deployment](#deployment)
   - [👥 Authors ](#-authors-)
   - [🔮 Future Features](#-future-features)
-  - [👀 Sneak Peak Process](#sneak-peak)
   - [🤝 Contributing ](#-contributing-)
   - [⭐️ Show your support ](#️-show-your-support-)
   - [❓ FAQ (OPTIONAL) ](#-faq-optional-)
   - [📝 License ](#-license-)
-- [📖 About the Project](#about-project)
-  - [🛠 Built With](#built-with)
-   - [Tech Stack](#tech-stack)
-    - [Key Features](#key-features)
-- [💻 Getting Started](#getting-started)
-  - [Setup](#setup)
-  - [Prerequisites](#prerequisites)
-  - [Install](#install)
-  - [Usage](#usage)
-  - [Run tests](#run-tests)
-  - [Deployment](#deployment)
-- [👥 Authors](#authors)
- - [Future Features](#future-features)
-- [🤝 Contributing](#contributing)
-- [⭐️ Show your support](#support)
-- [❓ FAQ (OPTIONAL)](#faq)
-- [📝 License](#license)
+
 
 <!-- PROJECT DESCRIPTION -->
 
 # 📖  Fortnite New Cosmetics App <a name="about-project"></a>
 
-**Fortnite New Cosmetics App** Recieve updated data from the official Fortnite API and shows the upcoming cosmetics coming to the store.
+**Fortnite New Cosmetics App** Recieve updated data from the official Fortnite API and shows the upcoming cosmetics coming to the game.
 
 ## 🛠 Built With <a name="built-with"></a>
 - HTML
