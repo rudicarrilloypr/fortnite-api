@@ -6,31 +6,26 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-        <title>New Cosmetics</title>
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <title>Most Wanted New Cosmetics</title>
     </head>
-      
 <body>
-  <!-- Estructura básica del header -->
   <header>
     <a href="https://www.fortnite.com/" target="_blank" rel="noopener">
       <div class="logo"></div>
     </a>
     <nav>
       <ul>
-        <li><a href="#New">New <span id="items-count">(0)</span></a></li>
+        <li><a href="index.html">New <span id="items-count">(0)</span></a></li>
         <li><a href="most-wanted.html">Most Wanted</a></li>
         <li><a href="https://store.epicgames.com/es-ES/p/fortnite" target="_blank" rel="noopener">Download</a></li>
       </ul>
     </nav>
   </header>
-
-  <!-- Estructura básica del main -->
   <main>
-    <!-- Asumiendo que los items vendrán desde la API y serán mostrados aquí -->
-    <div id="items"></div>
+    <h1>Most Wanted New Cosmetics</h1>
+    <div id="most-wanted-items"></div>
   </main>
-
-  <!-- Estructura básica del footer -->
   <footer>
     <a href="https://www.epicgames.com/site/es-ES/home" target="_blank" rel="noopener">
       <div id="logo1"></div>
@@ -40,21 +35,6 @@
       © 2023 Created by MICROVERSE under CC license. Author: Rudi Carrillo.</p>
     </div>
   </footer>
- <!-- Modal -->
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div id="comments"></div>
-    <form id="comment-form">
-      <label for="name">Name:</label><br>
-      <input type="text" id="name" name="name"><br>
-      <label for="comment">Tell Fortnite How Bad do you want it</label><br>
-      <textarea id="comment" name="comment"></textarea><br>
-      <input type="submit" value="Comment">
-    </form>
-  </div>
-</div>
-
+  <script src="../js/most-wanted.js"></script>
 </body>
 </html>

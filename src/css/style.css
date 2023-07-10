@@ -397,3 +397,19 @@ input:active {
 input:focus {
   outline: none; /* Elimina el borde predeterminado al hacer foco */
 }
+
+#most-wanted-items {
+  display: inline-grid;
+  grid-template-columns: repeat(auto-fit, minmax(2000px, 1fr));
+  gap: 20px; /* Espacio entre los elementos */
+  padding: 20px;
+  margin: 0 auto; /* Centra el contenedor */
+  max-width: 90%; /* anchura máxima del contenedor */
+  justify-content: space-around;
+  justify-items: center;
+  transition: transform 0.2s ease;
+}
+
+.most-wanted-items:hover {
+  transform: scale(1.1);
+}
