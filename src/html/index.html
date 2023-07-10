@@ -18,8 +18,8 @@
     <nav>
       <ul>
         <li><a href="#New">New <span id="items-count">(0)</span></a></li>
-        <li><a href="#Cosmetics">Cosmetics</a></li>
-        <li><a href="https://store.epicgames.com/es-ES/p/fortnite">Download</a></li>
+        <li><a href="#MostWanted">Most Wanted</a></li>
+        <li><a href="https://store.epicgames.com/es-ES/p/fortnite" target="_blank" rel="noopener">Download</a></li>
       </ul>
     </nav>
   </header>
@@ -40,5 +40,21 @@
       © 2023 Created by MICROVERSE under CC license. Author: Rudi Carrillo.</p>
     </div>
   </footer>
+ <!-- Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="comments"></div>
+    <form id="comment-form">
+      <label for="name">Name:</label><br>
+      <input type="text" id="name" name="name"><br>
+      <label for="comment">Tell Fortnite How Bad do you want it</label><br>
+      <textarea id="comment" name="comment"></textarea><br>
+      <input type="submit" value="Comment">
+    </form>
+  </div>
+</div>
+
 </body>
 </html>

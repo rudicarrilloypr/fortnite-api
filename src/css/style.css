@@ -171,3 +171,229 @@ footer {
   color: #f00;
   margin-right: 5px;
 }
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+  opacity: 0; /* Start fully transparent */
+  transition: opacity 0.5s ease; /* Transition effect for the background opacity */
+}
+
+.modal.show {
+  display: block; /* Show the modal */
+  opacity: 1; /* Make it fully opaque */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 45%; /* Could be more or less, depending on screen size */
+  height: auto;
+  max-width: 600px; /* Set a max width */
+  border-radius: 25px; /* Round corners */
+  transform: translateY(-50px); /* Move it up a bit */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.modal.show .modal-content {
+  animation: drop 0.5s ease-out forwards; /* Apply the drop animation */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  transition: transform 0.3s, opacity 0.3s; /* Add this */
+  position: absolute; /* Add this */
+  top: 10px; /* Add this */
+  right: 20px; /* Add this */
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  transform: rotate(180deg); /* Add this */
+  opacity: 0.6; /* Add this */
+}
+
+/* Define the drop animation */
+@keyframes drop {
+  0% { transform: translateY(-50px); }
+  100% { transform: translateY(0); }
+}
+
+/* Center form content */
+#comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.modal-image {
+  width: 30%;     /* o puedes usar un valor en px, por ejemplo: width: 200px; */
+  height: auto;    /* esto mantendrá la relación de aspecto de la imagen */
+}
+
+#comments {
+  /* Usa estas propiedades para posicionar los comentarios */
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 25%;
+  height: 150px;
+  overflow-y: scroll;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+}
+
+#comments::-webkit-scrollbar {
+  width: 10px;
+}
+
+#comments::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+#comments::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+#comments::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.comment .comment-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment .comment-header .comment-author {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.comment .comment-header .comment-date {
+  font-size: 0.8em;
+  color: #666;
+}
+
+.comment .comment-body {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.comment .comment-body .comment-text {
+  margin-bottom: 5px;
+}
+
+.comment .comment-body .comment-likes {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.comment .comment-body .comment-likes .like-btn {
+  margin-right: 5px;
+}
+
+.comment .comment-body .comment-likes .like-btn:hover {
+  color: #f00;
+}
+
+.comment .comment-body .comment-likes .like-btn.liked {
+  color: #f00;
+}
+
+.comment .comment-body .comment-likes .like-btn.liked:hover {
+  color: #000;
+}
+
+.comment .comment-body .comment-likes .like-btn.unliked {
+  color: #000;
+}
+
+.comment .comment-body .comment-likes .like-btn.unliked:hover {
+  color: #f00;
+}
+
+.comment .comment-body .comment-likes .like-btn.unliked:active {
+  color: #f00;
+}
+
+.comment .comment-body .comment-likes .like-btn.liked:active {
+  color: #000;
+}
+
+.comment .comment-body .comment-likes .like-btn:focus {
+  outline: none;
+}
+
+.comment .comment-body .comment-likes .like-btn:active {
+  transform: scale(0.9);
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #5ca0c5;
+  font-family: 'Roboto', sans-serif;
+}
+
+input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  margin: 10px 0;
+  background-color: #f0f0f0; /* Color de fondo de Fortnite */
+  color: #1aa7ff; /* Color de texto de Fortnite */
+  border: none; /* Sin bordes */
+  cursor: pointer; /* Cambia el cursor a un puntero */
+  font-family: 'Luckiest Guy', cursive; /* Fuente de Fortnite */
+  font-size: 16px; /* Tamaño de fuente a tu elección */
+  transition: background-color 0.2s ease;
+  vertical-align: middle;
+}
+
+input:hover {
+  background-color: #036; /* Cambia el color de fondo cuando se pasa el cursor por encima */
+}
+
+input:active {
+  background-color: #004999; /* Cambia el color de fondo cuando se hace click */
+}
+
+input:focus {
+  outline: none; /* Elimina el borde predeterminado al hacer foco */
+}
