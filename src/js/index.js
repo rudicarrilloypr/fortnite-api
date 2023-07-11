@@ -2,6 +2,14 @@ import {
   getItems, getItemLikes, postLike, postDislike, postComment, getComments,
 } from './api.js';
 import '../css/style.css';
+import { toggleMenuDisplay, toggleMenuIcon } from './mobile.js';
+
+const menuButton = document.querySelector('#menu-btn');
+
+if (menuButton) { // solo agregar los event listeners si el botón existe
+  menuButton.addEventListener('click', toggleMenuDisplay);
+  menuButton.addEventListener('click', toggleMenuIcon);
+}
 
 const comments = {};
 

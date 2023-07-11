@@ -70,9 +70,9 @@
 <!-- Features -->
 
 ### Key Features <a name="key-features"></a>
-- [X] **Home page showing a list of items that you can "comment".**
+- [X] **Home page showing a list of cosmetics that you can "comment".**
 - [X] **When the page loads, the webapp retrieves data from the Fortnite API and shows a list of new Cosmetics coming to the store**
-- [X] **Most wanted cosmetics feature**
+- [X] **Most wanted cosmetics feature calculed by the most commented items on the main page**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -80,7 +80,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-[Click here]() to see the project's deployment.
+[Click here](https://luxury-froyo-2b7424.netlify.app/) to see the project's deployment.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -146,7 +146,8 @@ To run tests, run the following command:
 <!--- Future Features ---->
 
 ## <a href="#future-features"></a>🔮 Future Features
-- Style adapted to mobile devices
+- More sections
+- Like button to items
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
