@@ -472,9 +472,9 @@ input:focus {
     height: auto;  /* Altura automática para ajustarse al contenido */
   }
 
-  #most-wanted-items {
-    width: 10%;  /* Ajusta el ancho de los items */
-    height: auto;
+  #most-wanted-items .item {
+    width: 18%;  /* Ajusta el ancho de los items */
+    height: 100%;
   }
 
   .modal-content {
@@ -483,7 +483,7 @@ input:focus {
   }
 
   #most-wanted-items .item img {
-    width: 10%; /* ajusta este porcentaje según tus necesidades */
+    width: 60%; /* ajusta este porcentaje según tus necesidades */
     height: auto; /* mantener el aspecto */
   }
 
