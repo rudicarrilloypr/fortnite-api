@@ -69,8 +69,9 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 30%;  /* Asegúrate de que sea suficientemente pequeño para que quepan tres en una fila */
+  height: 500px;  /* Asegúrate de que sea lo suficientemente alto para que quepan tres en una columna */
   margin: 1%;  /* Un pequeño margen alrededor para espacio entre items */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  /* Un poco de sombra para que parezca una caja */
   padding: 20px;
@@ -90,11 +91,12 @@ main {
   flex-wrap: wrap;
   justify-content: space-around;
   overflow: auto;
+  max-height: 100%;
 }
 
 #items img {
   width: 100%;
-  height: 100%;
+  height: 60%;
   object-fit: contain;
 }
 
@@ -249,6 +251,20 @@ footer {
   width: 100%;
 }
 
+textarea {
+  resize: none;
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #5ca0c5;
+  font-family: 'Roboto', sans-serif;
+}
+
+#comment-form label {
+  margin-top: 25px; /* Ajusta este valor según tu necesidad */
+}
+
 .modal-image {
   width: 30%;     /* o puedes usar un valor en px, por ejemplo: width: 200px; */
   height: auto;    /* esto mantendrá la relación de aspecto de la imagen */
@@ -286,7 +302,7 @@ footer {
 .comment {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .comment .comment-header {
@@ -360,16 +376,6 @@ footer {
   transform: scale(0.9);
 }
 
-textarea {
-  resize: none;
-  width: 100%;
-  height: 100px;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #5ca0c5;
-  font-family: 'Roboto', sans-serif;
-}
-
 input {
   display: flex;
   align-items: center;
@@ -412,4 +418,87 @@ input:focus {
 
 .most-wanted-items:hover {
   transform: scale(1.1);
+}
+
+#most-wanted-items .item img {
+  width: 60%; /* ajusta este porcentaje según tus necesidades */
+  height: auto; /* mantener el aspecto */
+  object-fit: contain;
+}
+
+#most-wanted-items .item p {
+  font-size: 1.5em;  /* ajusta este valor según tus necesidades */
+}
+
+/* ---------------------MEDIA QUERYS-------------------------- */
+
+/* Para móvil */
+@media (max-width: 480px) {
+  #menu-btn {
+    display: block;  /* se muestra en móvil */
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    color: white;
+  }
+
+  #nav.closed {
+    display: none;  /* inicialmente oculto en móvil */
+  }
+
+  #nav.open {
+    display: block;  /* se muestra cuando el menú está abierto */
+    position: absolute;  /* absolutamente posicionado */
+    top: 60px;  /* en la parte superior de la pantalla */
+    right: 0;  /* a la derecha de la pantalla */
+    width: 100%;  /* anchura de tu elección */
+    height: 40%;  /* altura total de la pantalla */
+    background-color: #0051d3;  /* color de fondo de tu elección */
+    overflow: auto;  /* desplazamiento si es necesario */
+    font-size: 10px;
+  }
+
+  #nav.open a {
+    padding: 2px 5px;
+    display: flex;
+    margin-top: -10px;
+  }
+
+  .item {
+    width: 90%;  /* Ajusta el ancho de los items */
+    height: auto;  /* Altura automática para ajustarse al contenido */
+  }
+
+  #most-wanted-items {
+    width: 10%;  /* Ajusta el ancho de los items */
+    height: auto;
+  }
+
+  .modal-content {
+    width: 90%;  /* Ajusta el ancho de la ventana modal */
+    margin: 25% auto;
+  }
+
+  #most-wanted-items .item img {
+    width: 10%; /* ajusta este porcentaje según tus necesidades */
+    height: auto; /* mantener el aspecto */
+  }
+
+  textarea {
+    width: 90%;  /* Ajusta el ancho del textarea */
+    margin: 10px 0;
+  }
+}
+
+@media (min-width: 481px) {
+  #menu-btn {
+    display: none;  /* se esconde en escritorio */
+  }
+
+  #nav {
+    display: block;  /* se muestra en escritorio */
+  }
 }

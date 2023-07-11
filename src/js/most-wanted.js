@@ -1,5 +1,13 @@
 import { getItems } from './api.js';
 import '../css/style.css';
+import { toggleMenuDisplay, toggleMenuIcon } from './mobile.js';
+
+const menuButton = document.querySelector('#menu-btn');
+
+if (menuButton) { // solo agregar los event listeners si el botón existe
+  menuButton.addEventListener('click', toggleMenuDisplay);
+  menuButton.addEventListener('click', toggleMenuIcon);
+}
 
 async function getComments(itemId) {
   const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/4Ra3BPIlZ9RZb5SCWETK/comments?item_id=${itemId}`);
