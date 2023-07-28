@@ -1,4 +1,4 @@
-import { getItems } from './api.js';
+import { getItems, getComments, postComment } from './api.js';
 import '../css/style.css';
 import { toggleMenuDisplay, toggleMenuIcon } from './mobile.js';
 
@@ -9,54 +9,56 @@ if (menuButton) { // solo agregar los event listeners si el botón existe
   menuButton.addEventListener('click', toggleMenuIcon);
 }
 
-async function getComments(itemId) {
-  const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/4Ra3BPIlZ9RZb5SCWETK/comments?item_id=${itemId}`);
-
-  if (!response.ok) {
-    if (response.status === 400) {
-      throw new Error('Item not found or has no comments.');
-    }
-    throw new Error(`An error has occurred: ${response.status}`);
-  }
-
-  return response.json();
-}
+const comments = {};
 
 async function getMostCommentedItems() {
   const items = await getItems();
-
-  // Update the navigation bar with the number of items
   const itemsCountElement = document.querySelector('#items-count');
   itemsCountElement.textContent = `(${items.length})`;
 
-  // Para cada item, obtén sus comentarios y añade el número de comentarios al item.
   await Promise.all(items.map(async (item) => {
     try {
-      const comments = await getComments(item.id);
-      item.numComments = comments.length;
+      const itemComments = await getComments(item.id);
+      item.numComments = itemComments.length;
     } catch (error) {
       if (error.message === 'Item not found or has no comments.') {
-        // eslint-disable-next-line max-len
-        item.numComments = 0; // Asumimos que no hay comentarios si el item no existe o no tiene comentarios.
+        item.numComments = 0;
       } else {
         // eslint-disable-next-line no-console
         console.error(`Error fetching comments for item ${item.id}: ${error}`);
-        item.numComments = 0; // Asumimos que no hay comentarios si hay un error.
+        item.numComments = 0;
       }
     }
   }));
 
-  // eslint-disable-next-line max-len
-  // Ordena los items de acuerdo con el número de comentarios en orden descendente y selecciona los 5 primeros.
   const top5 = items.sort((a, b) => b.numComments - a.numComments).slice(0, 5);
-
   return top5;
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
   const mostWantedContainer = document.querySelector('#most-wanted-items');
-
   const mostCommentedItems = await getMostCommentedItems();
+
+  const modal = document.getElementById('myModal');
+  const span = document.getElementsByClassName('close')[0];
+  const commentForm = document.getElementById('comment-form');
+  const commentsContainer = document.getElementById('comments');
+
+  let modalItemImage = null;
+
+  const closeModal = () => {
+    modal.classList.remove('show');
+    commentsContainer.innerHTML = '';
+    if (modalItemImage) {
+      modalItemImage.remove();
+    }
+  };
+
+  const closeModalOnOutsideClick = (event) => {
+    if (event.target === modal) {
+      closeModal();
+    }
+  };
 
   mostCommentedItems.forEach((item) => {
     const itemElement = document.createElement('div');
@@ -67,6 +69,72 @@ window.addEventListener('DOMContentLoaded', async () => {
       <p>${item.name}</p>
       <p>${item.numComments} comments</p>
     `;
+
+    itemElement.addEventListener('click', async () => {
+      const itemImage = itemElement.querySelector('img').src;
+
+      modalItemImage = document.createElement('img');
+      modalItemImage.id = 'item-image';
+      modalItemImage.src = itemImage;
+      modalItemImage.className = 'modal-image';
+
+      commentForm.parentElement.insertBefore(modalItemImage, commentForm);
+
+      const itemId = item.id;
+
+      commentsContainer.innerHTML = '';
+
+      let itemComments = [];
+      try {
+        itemComments = await getComments(itemId);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(`Error fetching comments: ${error}`);
+      }
+
+      itemComments.forEach((comment) => {
+        const commentElement = document.createElement('p');
+        commentElement.textContent = `${comment.username}: ${comment.comment}`;
+        commentsContainer.appendChild(commentElement);
+      });
+
+      modal.classList.add('show');
+
+      span.onclick = closeModal;
+      window.onclick = closeModalOnOutsideClick;
+
+      commentForm.onsubmit = async (event) => {
+        event.preventDefault();
+
+        const nameElement = document.getElementById('name');
+        const commentElement = document.getElementById('comment');
+
+        const name = nameElement.value;
+        const comment = commentElement.value;
+
+        try {
+          await postComment(itemId, name, comment);
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(`Error posting comment: ${error}`);
+        }
+
+        if (!comments[itemId]) {
+          comments[itemId] = [];
+        }
+        comments[itemId].push({
+          username: name,
+          comment,
+        });
+
+        const newCommentElement = document.createElement('p');
+        newCommentElement.textContent = `${name}: ${comment}`;
+        commentsContainer.appendChild(newCommentElement);
+
+        nameElement.value = '';
+        commentElement.value = '';
+      };
+    });
 
     mostWantedContainer.appendChild(itemElement);
   });
