@@ -1,10 +1,25 @@
+const FORTNITE_API_URL = 'https://fortniteapi.io/v2/items/upcoming?lang=en';
+const FORTNITE_API_KEY = '3441f5c5-c1f6baf9-b16840a7-0c44af1f';
+
 export async function getItems() {
-  const response = await fetch('https://fortnite-api.com/v2/cosmetics/br/new');
+  const response = await fetch(FORTNITE_API_URL, {
+    headers: {
+      Authorization: FORTNITE_API_KEY,
+    },
+  });
+
+  if (!response.ok) {
+    console.error('Fortnite API error:', response.status, response.statusText);
+    throw new Error('No se pudieron obtener los items');
+  }
+
   const data = await response.json();
 
-  if (data && data.data && data.data.items) {
-    return data.data.items;
+  // La API nueva devuelve { items: [...] }
+  if (data && data.items) {
+    return data.items;
   }
+
   throw new Error('No se pudieron obtener los items');
 }
 
