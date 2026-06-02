@@ -1,63 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-        <title>Fortnite New Cosmetics</title>
-    </head>
-      
-<body>
-  <!-- Estructura básica del header -->
-  <header>
-    <a href="https://www.fortnite.com/" target="_blank" rel="noopener">
-      <div class="logo"></div>
-    </a>
-    <button id="menu-btn">
-      <i class="fas fa-bars"></i>  <!-- Icono de menú de hamburguesa -->
-    </button>
-    <nav id="nav" class="closed">
-      <ul>
-        <li><a href="#New">New <span id="items-count">(0)</span></a></li>
-        <li><a href="most-wanted.html">Most Wanted</a></li>
-        <li><a href="https://store.epicgames.com/es-ES/p/fortnite" target="_blank" rel="noopener">Download</a></li>
-      </ul>
-    </nav>
-  </header>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Fortnite Cosmetics Hub</title>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="https://www.fortnite.com/" target="_blank" rel="noopener" aria-label="Fortnite">
+        <span class="logo"></span>
+        <span>Cosmetics Hub</span>
+      </a>
+      <button id="menu-btn" type="button" aria-label="Abrir menu">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+      <nav id="nav" class="closed">
+        <ul>
+          <li><a href="#shop-section">Tienda actual</a></li>
+          <li><a href="#new-section">Proximos <span id="items-count">(0)</span></a></li>
+          <li><a href="most-wanted.html">Most Wanted</a></li>
+          <li><a href="https://store.epicgames.com/es-ES/p/fortnite" target="_blank" rel="noopener">Descargar</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <!-- Estructura básica del main -->
-  <main>
-    <!-- Asumiendo que los items vendrán desde la API y serán mostrados aquí -->
-    <div id="items"></div>
-  </main>
+    <main>
+      <section class="dashboard">
+        <div class="dashboard-title">
+          <p class="eyebrow">Fortnite cosmetics</p>
+          <h1>Explora cosmeticos nuevos y la tienda de hoy</h1>
+        </div>
 
-  <!-- Estructura básica del footer -->
-  <footer>
-    <a href="https://www.epicgames.com/site/es-ES/home" target="_blank" rel="noopener">
-      <div id="logo1"></div>
-    </a>
-    <div>
-      <p>© 2023 EPIC GAMES, FORTNITE, and any associated logos are trademarks, service marks, and/or registered trademarks of Epic Games, Inc<br>
-      © 2023 Created by Rudi Carrillo under CC license. Author: Rudi Carrillo.</p>
+        <div class="stats-row" aria-label="Resumen de cosmeticos">
+          <div>
+            <span id="new-count">0</span>
+            <small>Proximos</small>
+          </div>
+          <div>
+            <span id="shop-count">0</span>
+            <small>En tienda</small>
+          </div>
+          <div>
+            <span id="visible-count">0</span>
+            <small>Visibles</small>
+          </div>
+        </div>
+
+        <div class="toolbar" aria-label="Filtros">
+          <label class="search-field" for="search-input">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <input id="search-input" type="search" placeholder="Buscar cosmetico">
+          </label>
+
+          <label class="select-field" for="type-filter">
+            <i class="fas fa-layer-group" aria-hidden="true"></i>
+            <select id="type-filter">
+              <option value="all">Todos los tipos</option>
+            </select>
+          </label>
+
+          <div class="tab-list" role="tablist" aria-label="Vista">
+            <button class="tab-button is-active" type="button" data-view="shop" role="tab" aria-selected="true">
+              <i class="fas fa-store" aria-hidden="true"></i>
+              Tienda
+            </button>
+            <button class="tab-button" type="button" data-view="new" role="tab" aria-selected="false">
+              <i class="fas fa-magic" aria-hidden="true"></i>
+              Proximos
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="shop-section" class="catalog-section">
+        <div class="section-heading">
+          <p class="eyebrow">Rotacion diaria</p>
+          <h2>Tienda actual</h2>
+        </div>
+        <div id="shop-items" class="items-grid"></div>
+      </section>
+
+      <section id="new-section" class="catalog-section" hidden>
+        <div class="section-heading">
+          <p class="eyebrow">Nuevos archivos</p>
+          <h2>Proximos y nuevos cosmeticos</h2>
+        </div>
+        <div id="items" class="items-grid"></div>
+      </section>
+    </main>
+
+    <footer>
+      <a href="https://www.epicgames.com/site/es-ES/home" target="_blank" rel="noopener" aria-label="Epic Games">
+        <span id="logo1"></span>
+      </a>
+      <p>Fortnite, Epic Games y sus logos pertenecen a Epic Games, Inc. Proyecto creado por Rudi Carrillo.</p>
+    </footer>
+
+    <div id="myModal" class="modal" aria-hidden="true">
+      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="close" type="button" aria-label="Cerrar">
+          <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+        <div id="modal-body" class="modal-body"></div>
+        <aside class="comments-panel" aria-label="Comentarios">
+          <h3>Comentarios</h3>
+          <div id="comments"></div>
+          <form id="comment-form">
+            <label for="name">Nombre</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+            <label for="comment">Comentario</label>
+            <textarea id="comment" name="comment" required></textarea>
+            <button id="submit-comment" type="submit">
+              <i class="fas fa-paper-plane" aria-hidden="true"></i>
+              Comentar
+            </button>
+          </form>
+        </aside>
+      </div>
     </div>
-  </footer>
- <!-- Modal -->
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div id="comments"></div>
-    <form id="comment-form">
-      <label for="name">Name:</label><br>
-      <input type="text" id="name" name="name"><br>
-      <label for="comment">Tell Fortnite How Bad do you want it</label><br>
-      <textarea id="comment" name="comment"></textarea><br>
-      <input type="submit" value="Comment">
-    </form>
-  </div>
-</div>
-<div id="itemModal" class="modal"></div>
-</body>
+  </body>
 </html>

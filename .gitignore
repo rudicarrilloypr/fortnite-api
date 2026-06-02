@@ -407,3 +407,4 @@ FodyWeavers.xsd
 
 # .gitignore
 node_modules/
+dist/

@@ -1,80 +1,183 @@
-const FORTNITE_API_URL = 'https://fortniteapi.io/v2/items/upcoming?lang=en';
-const FORTNITE_API_KEY = '3441f5c5-c1f6baf9-b16840a7-0c44af1f';
+const FORTNITE_API_BASE_URL = 'https://fortnite-api.com/v2';
+const DEFAULT_LANGUAGE = 'es-419';
+const INVOLVEMENT_API_BASE_URL = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/4Ra3BPIlZ9RZb5SCWETK';
+const REQUEST_TIMEOUT = 18000;
+
+const fetchJson = async (url, options = {}) => {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
+
+    if (!response.ok) {
+      let apiMessage = response.statusText;
+
+      try {
+        const error = await response.json();
+        apiMessage = error.error || error.message || apiMessage;
+      } catch (parseError) {
+        apiMessage = response.statusText;
+      }
+
+      throw new Error(apiMessage || `HTTP ${response.status}`);
+    }
+
+    if (response.status === 204) {
+      return null;
+    }
+
+    const text = await response.text();
+
+    if (!text) {
+      return null;
+    }
+
+    return JSON.parse(text);
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      throw new Error('La API tardo demasiado en responder.');
+    }
+
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
+};
+
+const fortniteUrl = (path) => `${FORTNITE_API_BASE_URL}${path}?language=${DEFAULT_LANGUAGE}`;
+
+const readImage = (item) => {
+  if (!item) return '';
+
+  return item.images?.featured
+    || item.images?.icon
+    || item.images?.smallIcon
+    || item.images?.large
+    || item.images?.small
+    || item.albumArt
+    || '';
+};
+
+const readType = (item) => {
+  if (item?.artist) return 'Jam Track';
+  return item?.type?.displayValue || item?.type?.value || 'Cosmetico';
+};
+
+const readRarity = (item) => item?.series?.value
+  || item?.rarity?.displayValue
+  || item?.rarity?.value
+  || 'Especial';
+
+const normalizeCosmetic = (item, source = 'new') => ({
+  id: item.id || item.vehicleId || `${item.name || item.title}-${item.added || source}`,
+  name: item.name || item.title || 'Cosmetico sin nombre',
+  description: item.description || (item.artist ? `${item.artist}${item.releaseYear ? ` (${item.releaseYear})` : ''}` : 'Cosmetico de Fortnite.'),
+  image: readImage(item),
+  type: readType(item),
+  rarity: readRarity(item),
+  set: item.set?.value || '',
+  introduction: item.introduction?.text || '',
+  added: item.added || '',
+  source,
+  raw: item,
+});
+
+const flattenNewCosmetics = (itemsByCategory = {}) => Object.entries(itemsByCategory)
+  .flatMap(([category, items]) => (Array.isArray(items) ? items : [])
+    .map((item) => ({
+      ...normalizeCosmetic(item, 'new'),
+      category,
+    })))
+  .filter((item) => item.id && item.name && item.image);
+
+const getFirstEntryItem = (entry) => {
+  const collections = [
+    entry.brItems,
+    entry.tracks,
+    entry.instruments,
+    entry.cars,
+    entry.lego,
+    entry.legoKits,
+    entry.beans,
+  ];
+
+  const firstCollection = collections
+    .find((collection) => Array.isArray(collection) && collection.length);
+
+  return firstCollection?.[0] || null;
+};
+
+const getEntryImage = (entry, item) => {
+  const displayAsset = entry.newDisplayAsset?.renderImages
+    ?.find((image) => image.image);
+  const displayAssetImage = displayAsset?.image;
+
+  return displayAssetImage || readImage(item);
+};
+
+const normalizeShopEntry = (entry) => {
+  const item = getFirstEntryItem(entry);
+  const normalized = normalizeCosmetic(item || {}, 'shop');
+
+  return {
+    ...normalized,
+    id: item?.id || item?.vehicleId || entry.offerId,
+    name: normalized.name === 'Cosmetico sin nombre' ? entry.devName || 'Oferta de tienda' : normalized.name,
+    image: getEntryImage(entry, item),
+    price: entry.finalPrice,
+    regularPrice: entry.regularPrice,
+    section: entry.layout?.name || 'Tienda',
+    inDate: entry.inDate || '',
+    outDate: entry.outDate || '',
+    offerId: entry.offerId,
+  };
+};
+
+export async function getNewCosmetics() {
+  const response = await fetchJson(fortniteUrl('/cosmetics/new'));
+  const items = flattenNewCosmetics(response?.data?.items);
+
+  return items.sort((a, b) => new Date(b.added) - new Date(a.added));
+}
+
+export async function getShopItems() {
+  const response = await fetchJson(fortniteUrl('/shop'));
+  const entries = response?.data?.entries || [];
+
+  return entries
+    .map(normalizeShopEntry)
+    .filter((item) => item.id && item.name && item.image);
+}
 
 export async function getItems() {
-  const response = await fetch(FORTNITE_API_URL, {
-    headers: {
-      Authorization: FORTNITE_API_KEY,
-    },
-  });
-
-  if (!response.ok) {
-    console.error('Fortnite API error:', response.status, response.statusText);
-    throw new Error('No se pudieron obtener los items');
-  }
-
-  const data = await response.json();
-
-  // La API nueva devuelve { items: [...] }
-  if (data && data.items) {
-    return data.items;
-  }
-
-  throw new Error('No se pudieron obtener los items');
+  return getNewCosmetics();
 }
 
 export async function getItemLikes() {
-  let likes;
   try {
-    const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/4Ra3BPIlZ9RZb5SCWETK/likes');
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    if (response.headers.get('content-length') === '0' || response.status === 204) {
-      likes = [];
-    } else {
-      likes = await response.json();
-    }
+    const likes = await fetchJson(`${INVOLVEMENT_API_BASE_URL}/likes`);
+    return Array.isArray(likes) ? likes : [];
   } catch (error) {
-    likes = [];
+    return [];
   }
-  return likes;
 }
 
 export async function postLike(itemId) {
-  const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/4Ra3BPIlZ9RZb5SCWETK/likes', {
+  await fetchJson(`${INVOLVEMENT_API_BASE_URL}/likes`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ item_id: itemId }),
   });
-
-  if (!response.ok) {
-    const message = `An error has occurred: ${response.status}`;
-    throw new Error(message);
-  }
-}
-
-export async function postDislike(itemId) {
-  const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/4Ra3BPIlZ9RZb5SCWETK/dislikes', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ item_id: itemId }),
-  });
-
-  if (!response.ok) {
-    const message = `An error has occurred: ${response.status}`;
-    throw new Error(message);
-  }
 }
 
 export async function postComment(itemId, name, comment) {
-  const response = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/4Ra3BPIlZ9RZb5SCWETK/comments', {
+  await fetchJson(`${INVOLVEMENT_API_BASE_URL}/comments`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -85,21 +188,17 @@ export async function postComment(itemId, name, comment) {
       comment,
     }),
   });
-
-  if (!response.ok) {
-    const message = `An error has occurred: ${response.status}`;
-    throw new Error(message);
-  }
 }
 
 export async function getComments(itemId) {
-  const response = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/4Ra3BPIlZ9RZb5SCWETK/comments?item_id=${itemId}`);
+  try {
+    const comments = await fetchJson(`${INVOLVEMENT_API_BASE_URL}/comments?item_id=${encodeURIComponent(itemId)}`);
+    return Array.isArray(comments) ? comments : [];
+  } catch (error) {
+    if (/not found|no comments|400/i.test(error.message)) {
+      return [];
+    }
 
-  if (!response.ok) {
-    const message = `An error has occurred: ${response.status}`;
-    throw new Error(message);
+    throw error;
   }
-
-  const comments = await response.json();
-  return comments;
 }

@@ -1,59 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-        <link rel="stylesheet" type="text/css" href="../css/style.css">
-        <title>Most Wanted New Cosmetics</title>
-    </head>
-<body>
-  <header>
-    <a href="https://www.fortnite.com/" target="_blank" rel="noopener">
-      <div class="logo"></div>
-    </a>
-    <button id="menu-btn">
-      <i class="fas fa-bars"></i>  <!-- Icono de menú de hamburguesa -->
-    </button>
-    <nav id="nav" class="closed">
-      <ul>
-        <li><a href="index.html">New <span id="items-count">(0)</span></a></li>
-        <li><a href="most-wanted.html">Most Wanted</a></li>
-        <li><a href="https://store.epicgames.com/es-ES/p/fortnite" target="_blank" rel="noopener">Download</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <h1>Most Wanted New Cosmetics</h1>
-    <div id="most-wanted-items"></div>
-  </main>
-  <footer>
-    <a href="https://www.epicgames.com/site/es-ES/home" target="_blank" rel="noopener">
-      <div id="logo1"></div>
-    </a>
-    <div>
-      <p>© 2023 EPIC GAMES, FORTNITE, and any associated logos are trademarks, service marks, and/or registered trademarks of Epic Games, Inc<br>
-      © 2023 Created by Rudi Carrillo under CC license. Author: Rudi Carrillo.</p>
-    </div>
-  </footer>
-  <!-- Modal -->
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div id="comments"></div>
-    <form id="comment-form">
-      <label for="name">Name:</label><br>
-      <input type="text" id="name" name="name"><br>
-      <label for="comment">Tell Fortnite How Bad do you want it</label><br>
-      <textarea id="comment" name="comment"></textarea><br>
-      <input type="submit" value="Comment">
-    </form>
-  </div>
-</div>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Most Wanted Cosmetics</title>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="index.html" aria-label="Fortnite Cosmetics Hub">
+        <span class="logo"></span>
+        <span>Cosmetics Hub</span>
+      </a>
+      <button id="menu-btn" type="button" aria-label="Abrir menu">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+      <nav id="nav" class="closed">
+        <ul>
+          <li><a href="index.html">Proximos</a></li>
+          <li><a href="most-wanted.html">Most Wanted <span id="items-count">(0)</span></a></li>
+          <li><a href="https://store.epicgames.com/es-ES/p/fortnite" target="_blank" rel="noopener">Descargar</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <script src="../js/most-wanted.js"></script>
-</body>
+    <main>
+      <section class="dashboard compact-dashboard">
+        <div class="dashboard-title">
+          <p class="eyebrow">Comunidad</p>
+          <h1>Most Wanted Cosmetics</h1>
+        </div>
+      </section>
+
+      <section class="catalog-section">
+        <div class="section-heading">
+          <p class="eyebrow">Top comentarios</p>
+          <h2>Los mas pedidos</h2>
+        </div>
+        <div id="most-wanted-items" class="items-grid wanted-grid"></div>
+      </section>
+    </main>
+
+    <footer>
+      <a href="https://www.epicgames.com/site/es-ES/home" target="_blank" rel="noopener" aria-label="Epic Games">
+        <span id="logo1"></span>
+      </a>
+      <p>Fortnite, Epic Games y sus logos pertenecen a Epic Games, Inc. Proyecto creado por Rudi Carrillo.</p>
+    </footer>
+
+    <div id="myModal" class="modal" aria-hidden="true">
+      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="close" type="button" aria-label="Cerrar">
+          <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+        <div id="modal-body" class="modal-body"></div>
+        <aside class="comments-panel" aria-label="Comentarios">
+          <h3>Comentarios</h3>
+          <div id="comments"></div>
+          <form id="comment-form">
+            <label for="name">Nombre</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+            <label for="comment">Comentario</label>
+            <textarea id="comment" name="comment" required></textarea>
+            <button id="submit-comment" type="submit">
+              <i class="fas fa-paper-plane" aria-hidden="true"></i>
+              Comentar
+            </button>
+          </form>
+        </aside>
+      </div>
+    </div>
+  </body>
 </html>

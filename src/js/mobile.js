@@ -1,13 +1,28 @@
-// Selecciona los elementos necesarios
-const menuBtn = document.querySelector('#menu-btn i');
-const nav = document.querySelector('#nav');
+const getMenuElements = () => ({
+  button: document.querySelector('#menu-btn'),
+  icon: document.querySelector('#menu-btn i'),
+  nav: document.querySelector('#nav'),
+});
 
-// Función para alternar el menú
-function toggleMenu() {
-  nav.classList.toggle('open');
-  menuBtn.classList.toggle('fa-bars');
-  menuBtn.classList.toggle('fa-times');
+export function toggleMenuDisplay() {
+  const { nav } = getMenuElements();
+  if (nav) nav.classList.toggle('open');
 }
 
-// Añade el evento click al botón del menú
-document.querySelector('#menu-btn').addEventListener('click', toggleMenu);
+export function toggleMenuIcon() {
+  const { icon } = getMenuElements();
+  if (!icon) return;
+
+  icon.classList.toggle('fa-bars');
+  icon.classList.toggle('fa-times');
+}
+
+export function setupMobileMenu() {
+  const { button } = getMenuElements();
+  if (!button) return;
+
+  button.addEventListener('click', () => {
+    toggleMenuDisplay();
+    toggleMenuIcon();
+  });
+}
